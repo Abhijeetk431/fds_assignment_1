@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  backend:
+    build: ./backend
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=mydb
+      - DB_USER=admin
+      - DB_PASSWORD=admin
+    networks:
+      - app-network
+
+  db:
+    build: ./database
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge

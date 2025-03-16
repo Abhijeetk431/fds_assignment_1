@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FDS App</title>
+</head>
+<body>
+    <h1>FDS ASSIGNMENT 1</h1>
+    <button onclick="fetchData()">Record Current Timestamp</button>
+    <div id="results"></div>
+
+    <script>
+        /**
+         * Fetches data from the '/api/data' endpoint and updates the page with the results.
+         * 
+         * Sends a GET request to the specified endpoint, receives a JSON array of timestamps,
+         * and displays them in the HTML element with the id 'results', separated by line breaks.
+         */
+        async function fetchData() {
+            const response = await fetch('http://localhost/api/data');
+            const data = await response.json();
+            document.getElementById('results').innerHTML = data.join('<br>');
+        }
+    </script>
+</body>
+</html>
